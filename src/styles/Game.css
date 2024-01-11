@@ -1,0 +1,14 @@
+.game {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  input {
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 8px 20px;
+    cursor: pointer;
+  }
