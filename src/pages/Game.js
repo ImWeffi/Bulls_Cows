@@ -25,7 +25,7 @@ const Game = () => {
    }
   return secret;
   }
-  
+   
   function handleGuessChange(event) {
       setGuess(event.target.value);
     }
