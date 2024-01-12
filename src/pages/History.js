@@ -1,11 +1,11 @@
 import Header from "../components/Header";
 
 
-
-const History = () => {
+const History = ({attempts}) => {
 
     return(<div>
   <Header />
+  
     </div>);
 }
 

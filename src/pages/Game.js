@@ -9,7 +9,7 @@ const Game = () => {
   
   const [numberLength, setNumberLength] = useState(3);
   const [randomNumber, setRandomNumber] = useState(genrateThreeDigitNumber);
-  const [guess, setGuess] = useState(0);
+  const [guess, setGuess] = useState('');
   const [feedback, setFeedback] = useState('');
   const [attempts, setAttempts] = useState([]);
   const [timer, setTimer] = useState(0);
@@ -50,7 +50,7 @@ return {bulls , cows};
    function guessSumbit(event){
     event.preventDefault();
     const {bulls, cows } = calculateBullsAndCows();
-  const attemptResult = { guess, result: `Bulls: ${bulls}, Cows: ${cows}` };
+  const attemptResult = { guess, result: `Bulls: ${bulls}, Cows: ${cows}, Time: ${timer} seconds.`};
   setAttempts([...attempts, attemptResult]);
    if (bulls === numberLength){
   setFeedback(`Congrats, you win! Bulls: ${bulls}`);

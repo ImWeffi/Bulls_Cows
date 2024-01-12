@@ -14,7 +14,7 @@ const SettingsModal = ({ isOpen, closeModal }) => {
     >
       
     
-      <button>Change number length</button>
+      <button variant="primary">Change number length</button>
       <button>Reset changes</button>
       <button onClick={closeModal}>Close</button>
     </Modal>
