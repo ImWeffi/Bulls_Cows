@@ -1,9 +1,12 @@
+
 import Header from "../components/Header";
 
-const History = ({ attempts }) => {
+const History = ({attempts}) => {
+  
   return (
     <div>
       <Header />
+       {/* <h2>{attempts.bulls}</h2> */}
     </div>
   );
 };

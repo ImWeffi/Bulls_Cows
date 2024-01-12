@@ -134,7 +134,7 @@ const Game = () => {
             required
           />
         </form>
-        
+
         <p>{feedback}</p>
         <AttemptsList attempts={attempts} />
       </div>
