@@ -7,7 +7,7 @@ const AttemptsList = ({ attempts }) => {
       <ul>
         {attempts.map((attempt, index) => (
           <li key={index}>
-            {attempt.guess} - {attempt.result} {attempt.timer}
+            {attempt.guess}  {attempt.result} {attempt.timer}
           </li>
         ))}
       </ul>

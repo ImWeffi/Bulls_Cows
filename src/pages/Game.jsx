@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Game.css";
 import AttemptsList from "../components/AttemptsList";
 import SettingsModal from "../components/SettingsModal";
-const Game = () => {
+const Game = (props) => {
   const [numberLength, setNumberLength] = useState(3);
   const [randomNumber, setRandomNumber] = useState(genrateThreeDigitNumber());
   const [guess, setGuess] = useState("");
@@ -56,14 +56,21 @@ const Game = () => {
     const { bulls, cows } = calculateBullsAndCows();
     const attemptResult = {
       guess,
-      result: `Bulls: ${bulls}, Cows: ${cows}, Time: ${timer} seconds.`,
+      result: `Bulls: ${bulls} Cows: ${cows} Time: ${timer} seconds.`,
     };
-    setAttempts([...attempts, attemptResult]);
-    if (bulls === numberLength) {
-      setFeedback(`Congrats, you win! Bulls: ${bulls}`);
-      setTimer(0);
+
+    if (attempts.some((attempt) => attempt.guess === guess)) {
+      setFeedback("You already made this guess. Try a different one.");
     } else {
-      setFeedback(`Bulls: ${bulls} Cows: ${cows} Try again!`);
+      setAttempts([...attempts, attemptResult]);
+
+      if (bulls === numberLength) {
+        alert(`Congrats, you win! Bulls: ${bulls}`);
+        setTimer(0);
+        setGuess("");
+      } else {
+        setFeedback(`Bulls: ${bulls} Cows: ${cows} Try again!`);
+      }
     }
   }
 
@@ -88,16 +95,24 @@ const Game = () => {
   }
 
   function restartGame() {
+    startNewGame(numberLength);
+  }
+
+  function startNewGame(numberLength) {
     setRandomNumber(genrateThreeDigitNumber());
     setGuess("");
     setFeedback("");
     setAttempts([]);
     setTimer(0);
-    const fakeEvent = { target: { value: numberLength } };
-    handleNumberLengthChange(fakeEvent);
+    setNumberLength(numberLength);
   }
 
-  console.log(randomNumber);
+  useEffect(() => {
+    startNewGame(numberLength);
+  }, [numberLength]);
+
+  console.log("Random number:" + randomNumber);
+  console.log("Number length:" + numberLength);
 
   return (
     <>
@@ -105,6 +120,7 @@ const Game = () => {
       <div className="game">
         <form onSubmit={guessSumbit}>
           <input
+            id="guess"
             type="number"
             value={guess}
             onChange={handleGuessChange}
@@ -115,8 +131,7 @@ const Game = () => {
 
           <button type="sumbit">Try to guess</button>
           <button onClick={restartGame}>Restart</button>
-          <button onClick={openModal}>Settings</button>
-          <SettingsModal isOpen={modalIsOpen} closeModal={closeModal} />
+
           <p>
             You play <strong>{timer} </strong>seconds
           </p>
@@ -125,16 +140,26 @@ const Game = () => {
           </p>
         </form>
 
-        <form>
+        <form >
           <input
+            id = "numberLengthChange"
             type="number"
+            value={numberLength}
             onChange={handleNumberLengthChange}
             max="10"
             min="1"
             required
           />
         </form>
-
+        <br></br>
+        <div>
+          <button onClick={openModal}>Settings</button>
+          <SettingsModal
+            isOpen={modalIsOpen}
+            closeModal={closeModal}
+            restartGame={restartGame}
+          ></SettingsModal>
+        </div>
         <p>{feedback}</p>
         <AttemptsList attempts={attempts} />
       </div>
