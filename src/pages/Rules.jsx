@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import '../styles/Rules.css'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 const Rules = () => {
 
 return (<>
@@ -21,7 +21,7 @@ return (<>
       </p>
       <h2 className="sub-heading">Rules:</h2>
       <ul className="rules-list">
-        <li>The hidden number consists of four digits.</li>
+        <li>The hidden number consists of three digits.</li>
         <li>Digits cannot be repeated in the hidden number.</li>
         <li>The player makes a guess, and they are informed about bulls and cows.</li>
         <li>The game continues until the player guesses the number.</li>

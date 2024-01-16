@@ -1,17 +1,25 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import '../styles/Header.css'
-
-export default function Header(){
-    return (
-        <nav className="navbar">
-        
-        <ul className="nav-links">
-          <li><Link to="/game">Game</Link></li>
-          <li><Link to="/rules">Rules</Link></li>
-          <li><Link to="/history">History</Link></li>
-          
-        </ul>
-      </nav>
-    );
+export default function Header() {
+  return (
+    <header className="d-flex justify-content-center py-2 bg-light">
+      <ul className="nav nav-pills">
+        <li className="nav-item">
+          <Link to="/game" className="nav-link active text-light">
+            Game
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/rules" className="nav-link text-dark">
+            Rules
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/history" className="nav-link text-dark">
+            History
+          </Link>
+        </li>
+      </ul>
+    </header>
+  );
 }

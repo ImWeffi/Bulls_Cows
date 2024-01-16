@@ -1,9 +1,10 @@
 import Header from "../components/Header";
 import React, { useState, useEffect } from "react";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Game.css";
 import AttemptsList from "../components/AttemptsList";
 import SettingsModal from "../components/SettingsModal";
+
 const Game = (props) => {
   const [numberLength, setNumberLength] = useState(3);
   const [randomNumber, setRandomNumber] = useState(genrateThreeDigitNumber());
@@ -11,7 +12,6 @@ const Game = (props) => {
   const [feedback, setFeedback] = useState("");
   const [attempts, setAttempts] = useState([]);
   const [timer, setTimer] = useState(0);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function genrateThreeDigitNumber() {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -31,7 +31,13 @@ const Game = (props) => {
   }
 
   function handleGuessChange(event) {
-    setGuess(event.target.value);
+    const value = event.target.value;
+    if (/^[1-9][0-9]*$/.test(value) || value === "") {
+      const uniqueDigits = new Set(value.split(""));
+      if (uniqueDigits.size === value.length) {
+        setGuess(value);
+      }
+    }
   }
 
   function handleNumberLengthChange(event) {
@@ -86,20 +92,12 @@ const Game = (props) => {
     return () => clearInterval(interval);
   }, [guess]);
 
-  function openModal() {
-    setModalIsOpen(true);
-  }
-
-  function closeModal() {
-    setModalIsOpen(false);
-  }
-
   function restartGame() {
     startNewGame(numberLength);
   }
 
   function startNewGame(numberLength) {
-    setRandomNumber(genrateThreeDigitNumber());
+    setRandomNumber(genrateThreeDigitNumber(numberLength));
     setGuess("");
     setFeedback("");
     setAttempts([]);
@@ -124,13 +122,19 @@ const Game = (props) => {
             type="number"
             value={guess}
             onChange={handleGuessChange}
+            onKeyUp={handleGuessChange}
             max={Math.pow(10, numberLength) - 1}
             min={Math.pow(10, numberLength - 1)}
             required
           />
-
-          <button type="sumbit">Try to guess</button>
-          <button onClick={restartGame}>Restart</button>
+          <div className="btn-group" role="group">
+            <button className="btn btn-success" type="sumbit">
+              Try to guess
+            </button>
+            <button className="btn btn-danger" onClick={restartGame}>
+              Restart
+            </button>
+          </div>
 
           <p>
             You play <strong>{timer} </strong>seconds
@@ -140,9 +144,9 @@ const Game = (props) => {
           </p>
         </form>
 
-        <form >
+        <form>
           <input
-            id = "numberLengthChange"
+            id="numberLengthChange"
             type="number"
             value={numberLength}
             onChange={handleNumberLengthChange}
@@ -153,12 +157,7 @@ const Game = (props) => {
         </form>
         <br></br>
         <div>
-          <button onClick={openModal}>Settings</button>
-          <SettingsModal
-            isOpen={modalIsOpen}
-            closeModal={closeModal}
-            restartGame={restartGame}
-          ></SettingsModal>
+          <SettingsModal/>
         </div>
         <p>{feedback}</p>
         <AttemptsList attempts={attempts} />

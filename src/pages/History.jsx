@@ -1,10 +1,11 @@
 import Header from "../components/Header";
-import "../styles/AttemptsList.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const History = ({attempts}) => {
   return (
     <div>
       <Header />
-      <div className="attempts-list">
+      <div className="history">
       <h2>Game History</h2>
       <ul>
         {attempts && attempts.map((attempt, index) => (

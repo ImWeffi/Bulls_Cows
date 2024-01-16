@@ -1,12 +1,13 @@
 import React from "react";
-import "../styles/AttemptsList.css";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 const AttemptsList = ({ attempts }) => {
   return (
-    <div className="attempts-list">
+    <div className="attempts-list ">
       <h3>Attempts List:</h3>
-      <ul>
+      <ul className="list-group list-group-flush">
         {attempts.map((attempt, index) => (
-          <li key={index}>
+          <li className="list-group-item" key={index}>
             {attempt.guess}  {attempt.result} {attempt.timer}
           </li>
         ))}
