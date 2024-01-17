@@ -1,14 +1,13 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React, { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
-function SettingsModal() {
+function SettingsModal({ onRestart, onNumberLengthChange }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-     
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -25,14 +24,25 @@ function SettingsModal() {
           <Modal.Title>Settings</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Do not even try to press
-          escape key.
+          <br />
+
+          <label htmlFor="numberLength">Change Number Length:</label>
+          <input
+            id="numberLength"
+            type="number"
+            min="1"
+            max="10"
+            onChange={(e) => onNumberLengthChange(e.target.value)}
+            required
+          />
+          <Button variant="danger" onClick={onRestart}>
+            Restart Game
+          </Button>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Understood</Button>
         </Modal.Footer>
       </Modal>
     </>
@@ -40,4 +50,3 @@ function SettingsModal() {
 }
 
 export default SettingsModal;
-

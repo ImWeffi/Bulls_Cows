@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Game.css";
 import AttemptsList from "../components/AttemptsList";
 import SettingsModal from "../components/SettingsModal";
+import Footer from "../components/Footer";
 
 const Game = (props) => {
   const [numberLength, setNumberLength] = useState(3);
@@ -38,10 +39,6 @@ const Game = (props) => {
         setGuess(value);
       }
     }
-  }
-
-  function handleNumberLengthChange(event) {
-    setNumberLength(event.target.value);
   }
 
   function calculateBullsAndCows() {
@@ -109,6 +106,14 @@ const Game = (props) => {
     startNewGame(numberLength);
   }, [numberLength]);
 
+  const handleRestart = () => {
+    startNewGame(numberLength);
+  };
+
+  const handleNumberLengthChangeModal = (newNumberLength) => {
+    startNewGame(newNumberLength);
+  };
+
   console.log("Random number:" + randomNumber);
   console.log("Number length:" + numberLength);
 
@@ -140,28 +145,20 @@ const Game = (props) => {
             You play <strong>{timer} </strong>seconds
           </p>
           <p>
-            your number length:<strong>{numberLength}</strong>
+            Your number length:<strong>{numberLength}</strong>
           </p>
         </form>
 
-        <form>
-          <input
-            id="numberLengthChange"
-            type="number"
-            value={numberLength}
-            onChange={handleNumberLengthChange}
-            max="10"
-            min="1"
-            required
-          />
-        </form>
-        <br></br>
         <div>
-          <SettingsModal/>
+          <SettingsModal
+            onRestart={handleRestart}
+            onNumberLengthChange={handleNumberLengthChangeModal}
+          />
         </div>
         <p>{feedback}</p>
         <AttemptsList attempts={attempts} />
       </div>
+      <Footer />
     </>
   );
 };

@@ -1,19 +1,24 @@
+import Footer from "../components/Footer";
 import Header from "../components/Header";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const History = ({attempts}) => {
+const History = ({ attempts }) => {
   return (
-    <div>
-      <Header />
-      <div className="history">
-      <h2>Game History</h2>
-      <ul>
-        {attempts && attempts.map((attempt, index) => (
-          <li key={index}>{attempt.attemptResult}</li>
-        ))}
-      </ul>
+    <>
+      <div>
+        <Header />
+        <div className="history">
+          <h2>Game History</h2>
+          <ul>
+            {attempts &&
+              attempts.map((attempt, index) => (
+                <li key={index}>{attempt.attemptResult}</li>
+              ))}
+          </ul>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
