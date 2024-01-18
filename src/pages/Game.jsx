@@ -13,6 +13,7 @@ const Game = (props) => {
   const [feedback, setFeedback] = useState("");
   const [attempts, setAttempts] = useState([]);
   const [timer, setTimer] = useState(0);
+  const [gameWon, setGameWon] = useState(false)
 
   function genrateThreeDigitNumber() {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -33,7 +34,7 @@ const Game = (props) => {
 
   function handleGuessChange(event) {
     const value = event.target.value;
-    if (/^[1-9][1-9]*$/.test(value) || value === "") {
+    if (/^[1-9][0-9]*$/.test(value) || value === "") {
       const uniqueDigits = new Set(value.split(""));
       if (uniqueDigits.size === value.length) {
         setGuess(value);
@@ -71,6 +72,7 @@ const Game = (props) => {
         alert(`Congrats, you win! Bulls: ${bulls}`);
         setTimer(0);
         setGuess("");
+        setGameWon(true);
       } else {
         setFeedback(`Bulls: ${bulls} Cows: ${cows} Try again!`);
       }
@@ -91,6 +93,7 @@ const Game = (props) => {
 
   function restartGame() {
     startNewGame(numberLength);
+    setGameWon(false);
   }
 
   function startNewGame(numberLength) {
@@ -108,6 +111,7 @@ const Game = (props) => {
 
   const handleRestart = () => {
     startNewGame(numberLength);
+    setGameWon(false);
   };
 
   const handleNumberLengthChangeModal = (newNumberLength) => {
@@ -124,13 +128,16 @@ const Game = (props) => {
         <form onSubmit={guessSumbit}>
           <input
             id="guess"
-            type="number"
+            type="text"
+            pattern="\d*"
             value={guess}
             onChange={handleGuessChange}
             onKeyUp={handleGuessChange}
-            max={Math.pow(10, numberLength) - 1}
             min={Math.pow(10, numberLength - 1)}
+            max={Math.pow(10, numberLength) - 1}
+            maxLength={numberLength} 
             required
+            disabled={gameWon}
           />
           <div className="btn-group" role="group">
             <button className="btn btn-success" type="sumbit">

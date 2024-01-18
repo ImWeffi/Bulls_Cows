@@ -1,25 +1,26 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import React from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Header() {
   return (
-    <header className="d-flex justify-content-center py-2 bg-light">
+    <header className="d-flex justify-content-center py-2 bg-light text-black">
       <ul className="nav nav-pills">
         <li className="nav-item">
-          <Link to="/game" className="nav-link active text-light">
+          <NavLink to="/game" className="nav-link" activeClassName="active">
             Game
-          </Link>
-        </li>
+          </NavLink>
+        </li>   
         <li className="nav-item">
-          <Link to="/rules" className="nav-link text-dark">
+          <NavLink to="/rules" className="nav-link" activeClassName="active">
             Rules
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/history" className="nav-link text-dark">
+          <NavLink to="/history" className="nav-link" activeClassName="active">
             History
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </header>

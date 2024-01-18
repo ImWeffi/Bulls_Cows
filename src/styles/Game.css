@@ -3,12 +3,20 @@
     margin-top: 50px;
   }
   
-  input {
-    padding: 8px;
-    margin-right: 10px;
-  }
-  
   button {
     padding: 8px 20px;
     cursor: pointer;
+  }
+
+  .game input {
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 10px;
+  }
+
+  .game input:disabled {
+    background-color: #f2f2f2;
+    color: #999;
   }

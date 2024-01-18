@@ -7,7 +7,6 @@ const Footer = () => {
   return (
     <footer className="bg-light text-dark text-center p-2 fixed-bottom">
       <div className="container">
-        <p>&copy; 2024 Nikita Karpovs. All rights reserved.</p>
         <div>
           <a
             href="https://github.com/ImWeffi"
