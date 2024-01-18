@@ -33,7 +33,7 @@ const Game = (props) => {
 
   function handleGuessChange(event) {
     const value = event.target.value;
-    if (/^[1-9][0-9]*$/.test(value) || value === "") {
+    if (/^[1-9][1-9]*$/.test(value) || value === "") {
       const uniqueDigits = new Set(value.split(""));
       if (uniqueDigits.size === value.length) {
         setGuess(value);

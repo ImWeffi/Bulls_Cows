@@ -8,6 +8,11 @@ function SettingsModal({ onRestart, onNumberLengthChange }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleNumberLengthChange = (e) => {
+    const selectedValue = parseInt(e.target.value, 10);
+    onNumberLengthChange(selectedValue);
+  };
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -27,19 +32,25 @@ function SettingsModal({ onRestart, onNumberLengthChange }) {
           <br />
 
           <label htmlFor="numberLength">Change Number Length:</label>
-          <input
+          <select
             id="numberLength"
-            type="number"
-            min="1"
-            max="10"
-            onChange={(e) => onNumberLengthChange(e.target.value)}
+            onChange={handleNumberLengthChange}
+            defaultValue="1"
             required
-          />
-          <Button variant="danger" onClick={onRestart}>
-            Restart Game
-          </Button>
+          >
+            {Array.from({ length: 9 }, (_, index) => index + 1).map(
+              (number) => (
+                <option key={number} value={number}>
+                  {number}
+                </option>
+              )
+            )}
+          </select>
         </Modal.Body>
         <Modal.Footer>
+        <Button variant="danger" onClick={onRestart}>
+            Restart Game
+          </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>

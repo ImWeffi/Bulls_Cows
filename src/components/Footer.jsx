@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "../styles/Footer.css";
 const Footer = () => {
   const email = "nikita.karpovs2004@inbox.lv";
 

@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const History = ({ attempts }) => {
   return (
     <>
-      <div>
         <Header />
         <div className="history">
           <h2>Game History</h2>
@@ -16,7 +15,6 @@ const History = ({ attempts }) => {
               ))}
           </ul>
         </div>
-      </div>
       <Footer />
     </>
   );
