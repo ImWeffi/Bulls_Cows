@@ -6,6 +6,7 @@ import AttemptsList from "../components/AttemptsList";
 import SettingsModal from "../components/SettingsModal";
 import Footer from "../components/Footer";
 
+
 const Game = (props) => {
   const [numberLength, setNumberLength] = useState(3);
   const [randomNumber, setRandomNumber] = useState(genrateThreeDigitNumber());
@@ -61,6 +62,7 @@ const Game = (props) => {
     const attemptResult = {
       guess,
       result: `Bulls: ${bulls} Cows: ${cows} Time: ${timer} seconds.`,
+      timer,
     };
 
     if (attempts.some((attempt) => attempt.guess === guess)) {
@@ -107,7 +109,7 @@ const Game = (props) => {
 
   useEffect(() => {
     startNewGame(numberLength);
-  }, [numberLength]);
+  }, [numberLength], [attempts]);
 
   const handleRestart = () => {
     startNewGame(numberLength);
@@ -163,7 +165,7 @@ const Game = (props) => {
           />
         </div>
         <p>{feedback}</p>
-        <AttemptsList attempts={attempts} />
+        <AttemptsList attempts={attempts} /> 
       </div>
       <Footer />
     </>
