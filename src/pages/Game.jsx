@@ -71,6 +71,7 @@ const Game = (props) => {
       setAttempts([...attempts, attemptResult]);
 
       if (bulls === numberLength) {
+        setAttempts(attemptResult);
         alert(`Congrats, you win! Bulls: ${bulls}`);
         setTimer(0);
         setGuess("");
@@ -135,9 +136,8 @@ const Game = (props) => {
             value={guess}
             onChange={handleGuessChange}
             onKeyUp={handleGuessChange}
-            min={Math.pow(10, numberLength - 1)}
-            max={Math.pow(10, numberLength) - 1}
-            maxLength={numberLength} 
+            minLength={numberLength}
+            maxLength={numberLength}
             required
             disabled={gameWon}
           />
