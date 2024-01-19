@@ -71,7 +71,7 @@ const Game = (props) => {
       setAttempts([...attempts, attemptResult]);
 
       if (bulls === numberLength) {
-        setAttempts(attemptResult);
+        setAttempts();
         alert(`Congrats, you win! Bulls: ${bulls}`);
         setTimer(0);
         setGuess("");
