@@ -1,13 +1,31 @@
-import Footer from "../components/Footer";
+import React from "react";
+import { useGameAttempts } from "../components/GameAttemptsContext";
 import Header from "../components/Header";
-import AttemptsList from "../components/AttemptsList";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from "../components/Footer";
 
-const History = ({attempts}) => {
+const History = () => {
+  const { gameAttempts } = useGameAttempts();
+
   return (
     <>
-        <Header />
-        <AttemptsList attempts={attempts} /> 
+      <Header />
+      <div className="container mt-4">
+        <div className="card">
+          <div className="card-body">
+            <h2 className="card-title">Game Attempts History</h2>
+            <ul className="list-group">
+              {gameAttempts.map((attempt, index) => (
+                <li
+                  key={index}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  {attempt.guess} - {attempt.result}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
       <Footer />
     </>
   );

@@ -4,10 +4,12 @@ import History from "./pages/History";
 import Rules from "./pages/Rules";
 import "./App.css";
 import NotFound from "./pages/NotFound";
+import { GameAttemptsProvider } from "./components/GameAttemptsContext";
 
 function App() {
   return (
     <div>
+      <GameAttemptsProvider>
       <BrowserRouter>
         <Routes>
           <Route index element={<Game />} />
@@ -17,6 +19,7 @@ function App() {
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      </GameAttemptsProvider>
     </div>
   );
 }

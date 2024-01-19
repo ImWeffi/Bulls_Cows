@@ -1,11 +1,11 @@
 import Header from "../components/Header";
 import React, { useState, useEffect } from "react";
+import { useGameAttempts } from "../components/GameAttemptsContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Game.css";
 import AttemptsList from "../components/AttemptsList";
 import SettingsModal from "../components/SettingsModal";
 import Footer from "../components/Footer";
-
 
 const Game = (props) => {
   const [numberLength, setNumberLength] = useState(3);
@@ -14,7 +14,8 @@ const Game = (props) => {
   const [feedback, setFeedback] = useState("");
   const [attempts, setAttempts] = useState([]);
   const [timer, setTimer] = useState(0);
-  const [gameWon, setGameWon] = useState(false)
+  const [gameWon, setGameWon] = useState(false);
+  const { addGameAttempt } = useGameAttempts();
 
   function genrateThreeDigitNumber() {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -64,7 +65,7 @@ const Game = (props) => {
       result: `Bulls: ${bulls} Cows: ${cows} Time: ${timer} seconds.`,
       timer,
     };
-
+    addGameAttempt(attemptResult);
     if (attempts.some((attempt) => attempt.guess === guess)) {
       setFeedback("You already made this guess. Try a different one.");
     } else {
@@ -108,9 +109,13 @@ const Game = (props) => {
     setNumberLength(numberLength);
   }
 
-  useEffect(() => {
-    startNewGame(numberLength);
-  }, [numberLength], [attempts]);
+  useEffect(
+    () => {
+      startNewGame(numberLength);
+    },
+    [numberLength],
+    [attempts]
+  );
 
   const handleRestart = () => {
     startNewGame(numberLength);
@@ -128,6 +133,7 @@ const Game = (props) => {
     <>
       <Header />
       <div className="game">
+      <h4>Bulls And Cows Game!</h4>
         <form onSubmit={guessSumbit}>
           <input
             id="guess"
@@ -165,7 +171,7 @@ const Game = (props) => {
           />
         </div>
         <p>{feedback}</p>
-        <AttemptsList attempts={attempts} /> 
+        <AttemptsList attempts={attempts} />
       </div>
       <Footer />
     </>
