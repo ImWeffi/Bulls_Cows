@@ -19,7 +19,7 @@ const History = () => {
                   key={index}
                   className="list-group-item d-flex justify-content-between align-items-center"
                 >
-                  {attempt.guess} - {attempt.result}
+                  {attempt.guess} - Bulls: {attempt.bulls} Cows: {attempt.cows} Time: {attempt.timer} seconds
                 </li>
               ))}
             </ul>

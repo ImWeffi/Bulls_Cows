@@ -62,7 +62,9 @@ const Game = () => {
     const { bulls, cows } = calculateBullsAndCows();
     const attemptResult = {
       guess,
-      result: `Bulls: ${bulls} Cows: ${cows} Time: ${timer} seconds.`,
+      // result: `Bulls: ${bulls} Cows: ${cows} Time: ${timer} seconds.`,
+      bulls, 
+      cows, 
       timer,
     };
     addGameAttempt(attemptResult);
@@ -124,47 +126,50 @@ const Game = () => {
   return (
     <>
       <Header />
-      <div className="game">
-      <h4>Bulls And Cows Game!</h4>
-        <form onSubmit={guessSumbit}>
-          <input
-            id="guess"
-            type="text"
-            pattern="\d*"
-            value={guess}
-            onChange={handleGuessChange}
-            onKeyUp={handleGuessChange}
-            minLength={numberLength}
-            maxLength={numberLength}
-            size={numberLength}
-            required
-            disabled={gameWon}
-          />
-          <div className="btn-group" role="group">
-            <button className="btn btn-success" type="sumbit">
-              Try to guess
-            </button>
-            <button className="btn btn-danger" onClick={restartGame}>
-              Restart
-            </button>
+      <div className="container mt-5">
+        <div className="game text-center">
+          <h4>Bulls And Cows Game!</h4>
+          <form onSubmit={guessSumbit}>
+            <input
+              id="guess"
+              type="text"
+              pattern="\d*"
+              value={guess}
+              onChange={handleGuessChange}
+              onKeyUp={handleGuessChange}
+              minLength={numberLength}
+              maxLength={numberLength}
+              size={numberLength}
+              required
+              disabled={gameWon}
+            />
+            <div className="btn-group" role="group">
+              <button className="btn btn-success" type="sumbit">
+                Try to guess
+              </button>
+              <button className="btn btn-danger" onClick={restartGame}>
+                Restart
+              </button>
+            </div>
+
+            <p className="mt-3">
+              You play <strong>{timer} </strong>seconds
+            </p>
+            <p>
+              Your number length:<strong>{numberLength}</strong>
+            </p>
+          </form>
+
+          <div>
+            <SettingsModal
+              onRestart={handleRestart}
+              onNumberLengthChange={handleNumberLengthChangeModal}
+              defaultNumberLength={numberLength}
+            />
           </div>
-
-          <p>
-            You play <strong>{timer} </strong>seconds
-          </p>
-          <p>
-            Your number length:<strong>{numberLength}</strong>
-          </p>
-        </form>
-
-        <div>
-          <SettingsModal
-            onRestart={handleRestart}
-            onNumberLengthChange={handleNumberLengthChangeModal}
-          />
+          <p className="mt-3">{feedback}</p>
+          <AttemptsList attempts={attempts} />
         </div>
-        <p>{feedback}</p>
-        <AttemptsList attempts={attempts} />
       </div>
       <Footer />
     </>

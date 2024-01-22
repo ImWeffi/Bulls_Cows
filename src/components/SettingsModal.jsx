@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-function SettingsModal({ onRestart, onNumberLengthChange }) {
+function SettingsModal({
+  onRestart,
+  onNumberLengthChange,
+  defaultNumberLength,
+}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -35,7 +39,7 @@ function SettingsModal({ onRestart, onNumberLengthChange }) {
           <select
             id="numberLength"
             onChange={handleNumberLengthChange}
-            defaultValue="1"
+            defaultValue={defaultNumberLength}
             required
           >
             {Array.from({ length: 9 }, (_, index) => index + 1).map(
@@ -48,7 +52,7 @@ function SettingsModal({ onRestart, onNumberLengthChange }) {
           </select>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="danger" onClick={onRestart}>
+          <Button variant="danger" onClick={onRestart}>
             Restart Game
           </Button>
           <Button variant="secondary" onClick={handleClose}>
