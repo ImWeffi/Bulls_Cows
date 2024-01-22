@@ -7,9 +7,9 @@ import AttemptsList from "../components/AttemptsList";
 import SettingsModal from "../components/SettingsModal";
 import Footer from "../components/Footer";
 
-const Game = (props) => {
+const Game = () => {
   const [numberLength, setNumberLength] = useState(3);
-  const [randomNumber, setRandomNumber] = useState(genrateThreeDigitNumber());
+  const [randomNumber, setRandomNumber] = useState(generateThreeDigitNumber());
   const [guess, setGuess] = useState("");
   const [feedback, setFeedback] = useState("");
   const [attempts, setAttempts] = useState([]);
@@ -17,7 +17,7 @@ const Game = (props) => {
   const [gameWon, setGameWon] = useState(false);
   const { addGameAttempt } = useGameAttempts();
 
-  function genrateThreeDigitNumber() {
+  function generateThreeDigitNumber() {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let secret = "";
 
@@ -101,21 +101,13 @@ const Game = (props) => {
   }
 
   function startNewGame(numberLength) {
-    setRandomNumber(genrateThreeDigitNumber(numberLength));
+    setRandomNumber(generateThreeDigitNumber(numberLength));
     setGuess("");
     setFeedback("");
     setAttempts([]);
     setTimer(0);
     setNumberLength(numberLength);
   }
-
-  useEffect(
-    () => {
-      startNewGame(numberLength);
-    },
-    [numberLength],
-    [attempts]
-  );
 
   const handleRestart = () => {
     startNewGame(numberLength);
@@ -144,6 +136,7 @@ const Game = (props) => {
             onKeyUp={handleGuessChange}
             minLength={numberLength}
             maxLength={numberLength}
+            size={numberLength}
             required
             disabled={gameWon}
           />
