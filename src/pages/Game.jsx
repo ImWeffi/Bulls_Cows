@@ -62,7 +62,6 @@ const Game = () => {
     const { bulls, cows } = calculateBullsAndCows();
     const attemptResult = {
       guess,
-      // result: `Bulls: ${bulls} Cows: ${cows} Time: ${timer} seconds.`,
       bulls, 
       cows, 
       timer,
@@ -129,6 +128,9 @@ const Game = () => {
       <div className="container mt-5">
         <div className="game text-center">
           <h4>Bulls And Cows Game!</h4>
+          <p>
+              Write <strong>{numberLength} </strong>number length number
+            </p>
           <form onSubmit={guessSumbit}>
             <input
               id="guess"
@@ -154,9 +156,6 @@ const Game = () => {
 
             <p className="mt-3">
               You play <strong>{timer} </strong>seconds
-            </p>
-            <p>
-              Your number length:<strong>{numberLength}</strong>
             </p>
           </form>
 

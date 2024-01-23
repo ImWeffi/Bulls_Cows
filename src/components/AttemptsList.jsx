@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const AttemptsList = ({ attempts = [] }) => {
   return (
     <div className="attempts-list">
-      <h3>Attempts List:</h3>
+      <h3>Attempts List</h3>
       <table className="table">
         <thead>
           <tr>
