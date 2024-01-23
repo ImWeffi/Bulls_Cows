@@ -8,18 +8,34 @@ function SettingsModal({
   defaultNumberLength,
 }) {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [selectedNumberLength, setSelectedNumberLength] = useState(
+    defaultNumberLength
+  );
+  const [hasChanged, setHasChanged] = useState(false);
 
   const handleNumberLengthChange = (e) => {
     const selectedValue = parseInt(e.target.value, 10);
+    setSelectedNumberLength(selectedValue);
     onNumberLengthChange(selectedValue);
+    setHasChanged(true);
+  };
+
+  const handleClose = () => {
+    if (hasChanged) {
+      return;
+    }
+    setShow(false);
+  };
+
+  const handleRestartAndClose = () => {
+    onRestart();
+    setShow(false);
+    setHasChanged(false); 
   };
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={() => setShow(true)}>
         Settings
       </Button>
 
@@ -29,33 +45,33 @@ function SettingsModal({
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton={!hasChanged}>
           <Modal.Title>Settings</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <br />
-
           <label htmlFor="numberLength">Change Number Length:</label>
           <select
             id="numberLength"
             onChange={handleNumberLengthChange}
-            defaultValue={defaultNumberLength}
+            value={selectedNumberLength}
             required
           >
-            {Array.from({ length: 9 }, (_, index) => index + 1).map(
-              (number) => (
-                <option key={number} value={number}>
-                  {number}
-                </option>
-              )
-            )}
+            {Array.from({ length: 9 }, (_, index) => (
+              <option key={index + 1} value={index + 1}>
+                {index + 1}
+              </option>
+            ))}
           </select>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={onRestart}>
+          <Button variant="danger" onClick={handleRestartAndClose}>
             Restart Game
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            disabled={hasChanged}
+          >
             Close
           </Button>
         </Modal.Footer>

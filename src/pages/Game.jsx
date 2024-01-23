@@ -62,8 +62,8 @@ const Game = () => {
     const { bulls, cows } = calculateBullsAndCows();
     const attemptResult = {
       guess,
-      bulls, 
-      cows, 
+      bulls,
+      cows,
       timer,
     };
     addGameAttempt(attemptResult);
@@ -128,9 +128,6 @@ const Game = () => {
       <div className="container mt-5">
         <div className="game text-center">
           <h4>Bulls And Cows Game!</h4>
-          <p>
-              Write <strong>{numberLength} </strong>number length number
-            </p>
           <form onSubmit={guessSumbit}>
             <input
               id="guess"
@@ -142,30 +139,33 @@ const Game = () => {
               minLength={numberLength}
               maxLength={numberLength}
               size={numberLength}
-              required
               disabled={gameWon}
+              required
             />
+
+            <p>
+              Write <strong>{numberLength} </strong>number length number
+            </p>
+
             <div className="btn-group" role="group">
-              <button className="btn btn-success" type="sumbit">
+              <button
+                className="btn btn-success"
+                type="sumbit"
+                disabled={gameWon}
+              >
                 Try to guess
               </button>
               <button className="btn btn-danger" onClick={restartGame}>
                 Restart
               </button>
+              <SettingsModal
+                onRestart={handleRestart}
+                onNumberLengthChange={handleNumberLengthChangeModal}
+                defaultNumberLength={numberLength}
+              />
             </div>
-
-            <p className="mt-3">
-              You play <strong>{timer} </strong>seconds
-            </p>
           </form>
 
-          <div>
-            <SettingsModal
-              onRestart={handleRestart}
-              onNumberLengthChange={handleNumberLengthChangeModal}
-              defaultNumberLength={numberLength}
-            />
-          </div>
           <p className="mt-3">{feedback}</p>
           <AttemptsList attempts={attempts} />
         </div>

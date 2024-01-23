@@ -5,10 +5,10 @@ const AttemptsList = ({ attempts = [] }) => {
   return (
     <div className="attempts-list">
       <h3>Attempts List</h3>
-      <table className="table">
-        <thead>
+      <table className="table table-striped table-bordered">
+        <thead className="thead-dark">
           <tr>
-            <th scope="col">Try Nr.</th>
+            <th scope="col">#</th>
             <th scope="col">Guess</th>
             <th scope="col">Bulls</th>
             <th scope="col">Cows</th>
@@ -32,3 +32,4 @@ const AttemptsList = ({ attempts = [] }) => {
 };
 
 export default AttemptsList;
+
