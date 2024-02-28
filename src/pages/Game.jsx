@@ -8,7 +8,7 @@ import SettingsModal from "../components/SettingsModal";
 import Footer from "../components/Footer";
 
 const Game = () => {
-  const [numberLength, setNumberLength] = useState(3);
+  const [numberLength, setNumberLength] = useState(4);
   const [randomNumber, setRandomNumber] = useState(generateThreeDigitNumber());
   const [guess, setGuess] = useState("");
   const [feedback, setFeedback] = useState("");
@@ -59,6 +59,10 @@ const Game = () => {
 
   function guessSumbit(event) {
     event.preventDefault();
+    if (guess.length !== numberLength) {
+      alert(`Please enter a ${numberLength} digit number.`);
+      return;
+    }
     const { bulls, cows } = calculateBullsAndCows();
     const attemptResult = {
       guess,

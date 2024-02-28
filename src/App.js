@@ -12,8 +12,7 @@ function App() {
       <GameAttemptsProvider>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Game />} />
-          <Route path="/game" element={<Game />} />
+          <Route path="/" element={<Game />} />
           <Route path="/history" element={<History />} />
           <Route path="/rules" element={<Rules />} />
           <Route path="/*" element={<NotFound />} />

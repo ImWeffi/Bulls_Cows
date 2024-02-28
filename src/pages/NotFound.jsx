@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const NotFound = () => {
   return (
     <div>
-      <strong>This page doesn't exist. Go</strong> <Link to="/game">game</Link>
+      <strong>This page doesn't exist. Go</strong> <Link to="/">game</Link>
     </div>
   );
 };
