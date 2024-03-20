@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 function Register() {
   return (
     <>
@@ -45,6 +46,8 @@ function Register() {
                 Submit
               </button>
             </form>
+            <br/>
+            <Link to="/login">Log In</Link>
           </div>
         </div>
       </div>
