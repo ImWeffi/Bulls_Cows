@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:3002/login", { username, password })
+      .then((res) => {
+        console.log(res);
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("An error occurred during login");
+      });
+  };
+
   return (
     <>
       <Header />
@@ -11,7 +31,7 @@ const Login = () => {
           <div className="card-body p-4">
             <h1 className="card-title login-heading">Login Form</h1>
             <br />
-            <form>
+            <form onSubmit={handleLogin}>
               <div className="form-group">
                 <label htmlFor="exampleInputUsername">Username</label>
                 <input
@@ -19,6 +39,8 @@ const Login = () => {
                   className="form-control"
                   id="exampleInputUsername"
                   placeholder="Enter username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <br />
@@ -29,6 +51,8 @@ const Login = () => {
                   className="form-control"
                   id="exampleInputPassword"
                   placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <br />
               </div>
@@ -37,7 +61,7 @@ const Login = () => {
               </button>
             </form>
             <br />
-        <Link to="/register">not registered yet?</Link>
+            <Link to="/register">Not registered yet?</Link>
           </div>
         </div>
       </div>

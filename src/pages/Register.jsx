@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import axios from 'axios';
+import axios from "axios";
 import { Link } from "react-router-dom";
 const Register = () => {
   const [values, setValues] = useState({
-    name: '',
-    password: '',
-    email: '',
+    name: "",
+    password: "",
+    email: "",
   });
 
-  const handleChange = (event) => { 
+  const handleChange = (event) => {
     const { name, value } = event.target;
-    setValues({...values, [name]: value});
+    setValues({ ...values, [name]: value });
   };
 
-  const handleSubmit = (event) => { 
+  const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3002/register', values)
-      .then(res => console.log("Registered!"))
-      .catch(err => console.log(err));
+    axios
+      .post("http://localhost:3002/register", values)
+      .then((res) => console.log("Registered!"))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -71,7 +72,7 @@ const Register = () => {
                 Submit
               </button>
             </form>
-            <br/>
+            <br />
             <Link to="/login">Log In</Link>
           </div>
         </div>
@@ -82,4 +83,3 @@ const Register = () => {
 };
 
 export default Register;
-
