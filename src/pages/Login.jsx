@@ -8,19 +8,26 @@ import axios from "axios";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+
   const handleLogin = async (event) => {
     event.preventDefault();
-    axios
-      .post("http://localhost:3002/login", { username, password })
-      .then((res) => {
-        console.log(res);
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("An error occurred during login");
+    if (!username || !password) {
+      setError("Please fill in all fields");
+      return;
+    }
+    try {
+      const response = await axios.post("http://localhost:3002/login", {
+        username,
+        password,
       });
+      console.log(response);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error.response);
+      setError(error.response.data.error);
+    }
   };
 
   return (
@@ -61,6 +68,7 @@ const Login = () => {
               </button>
             </form>
             <br />
+            {error && <div className="alert alert-danger">{error}</div>}
             <Link to="/register">Not registered yet?</Link>
           </div>
         </div>
