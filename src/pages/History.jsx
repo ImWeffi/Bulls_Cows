@@ -1,14 +1,11 @@
 import React from "react";
 import { useGameAttempts } from "../components/GameAttemptsContext";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 const History = () => {
   const { gameAttempts } = useGameAttempts();
 
   return (
     <>
-      <Header />
       <div className="container mt-4">
         <div className="card">
           <div className="card-body">
@@ -27,7 +24,6 @@ const History = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

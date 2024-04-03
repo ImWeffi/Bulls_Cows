@@ -23,6 +23,7 @@ const Login = () => {
         password,
       });
       console.log(response);
+      localStorage.setItem("username", username);
       navigate("/dashboard");
     } catch (error) {
       console.error(error.response);

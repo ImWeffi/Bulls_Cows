@@ -12,14 +12,24 @@ const Footer = () => {
             href="https://github.com/ImWeffi"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-dark mx-2"
+            className="text-dark mx-1"
           >
             GitHub
           </a>
           |
-          <a href={`mailto:${email}`} className="text-dark ms-3">
-            Email
+          <a
+            href="https://linkedin.com/in/nikitakarpovs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-dark mx-2"
+          >
+            LinkedIn
           </a>
+          |
+          <a href={`mailto:${email}`} className="text-dark ms-3">
+           Email
+          </a>
+         
         </div>
       </div>
     </footer>
