@@ -75,6 +75,22 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.post("/api/results", (req, res) => {
+  const { user_id, guess, bulls, cows, timer } = req.body;
+
+  const sql = "INSERT INTO game_history (user_id, guess, bulls, cows, timer, created_at) VALUES (?, ?, ?, ?, ?, current_timestamp())";
+  const values = [user_id, guess, bulls, cows, timer];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error occurred during saving game result:", err);
+      return res.status(500).json({ error: "An error occurred during saving game result" });
+    }
+    console.log("Game result saved successfully");
+    return res.status(201).json({ message: "Game result saved successfully" });
+  });
+});
+
 app.listen(3002, () => {
   console.log("Server is running on port 3002");
 });

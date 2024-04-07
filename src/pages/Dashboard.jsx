@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import History from "./History";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -36,7 +35,6 @@ const Dashboard = () => {
                 <h1 className="card-title text-center mb-4">
                   Welcome, {username}!
                 </h1>
-                <History />
                 <br />
                 <button
                   className="btn btn-primary btn-block mb-3"

@@ -5,14 +5,12 @@ import Rules from "./pages/Rules";
 import Login from "./pages/Login";
 import "./App.css";
 import NotFound from "./pages/NotFound";
-import { GameAttemptsProvider } from "./components/GameAttemptsContext";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
     <div>
-      <GameAttemptsProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Game />} />
@@ -24,7 +22,6 @@ function App() {
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </GameAttemptsProvider>
     </div>
   );
 }

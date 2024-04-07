@@ -1,11 +1,11 @@
 import Header from "../components/Header";
 import React, { useState, useEffect } from "react";
-import { useGameAttempts } from "../components/GameAttemptsContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Game.css";
 import AttemptsList from "../components/AttemptsList";
 import SettingsModal from "../components/SettingsModal";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 const Game = () => {
   const [numberLength, setNumberLength] = useState(4);
@@ -15,7 +15,8 @@ const Game = () => {
   const [attempts, setAttempts] = useState([]);
   const [timer, setTimer] = useState(0);
   const [gameWon, setGameWon] = useState(false);
-  const { addGameAttempt } = useGameAttempts();
+ 
+  
 
   function generateThreeDigitNumber() {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -70,13 +71,13 @@ const Game = () => {
       cows,
       timer,
     };
-    addGameAttempt(attemptResult);
     if (attempts.some((attempt) => attempt.guess === guess)) {
       setFeedback("You already made this guess. Try a different one.");
     } else {
       setAttempts([...attempts, attemptResult]);
 
       if (bulls === numberLength) {
+        saveGameResult(attemptResult);
         setAttempts();
         alert(`Congrats, you win! Bulls: ${bulls}`);
         setTimer(0);
@@ -112,6 +113,13 @@ const Game = () => {
     setAttempts([]);
     setTimer(0);
     setNumberLength(numberLength);
+  }
+
+  function saveGameResult(result) {
+    axios
+      .post("http://localhost:3002/api/results", result)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error(error));
   }
 
   const handleRestart = () => {

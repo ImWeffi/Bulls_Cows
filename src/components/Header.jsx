@@ -24,6 +24,13 @@ export default function Header() {
             </li>
             {isLoggedIn && ( 
               <li className="nav-item">
+                <NavLink to="/history" className="nav-link">
+                  History
+                </NavLink>
+              </li>
+            )}
+            {isLoggedIn && ( 
+              <li className="nav-item">
                 <NavLink to="/dashboard" className="nav-link">
                   Dashboard
                 </NavLink>
