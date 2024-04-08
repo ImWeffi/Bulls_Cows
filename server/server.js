@@ -70,8 +70,6 @@ app.post("/login", (req, res) => {
     if (user.password !== password) {
       return res.status(400).json({ error: "Invalid username or password" });
     }
-
-    return res.status(200).json({ message: "Login successful" });
   });
 });
 

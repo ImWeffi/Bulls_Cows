@@ -15,8 +15,14 @@ const Game = () => {
   const [attempts, setAttempts] = useState([]);
   const [timer, setTimer] = useState(0);
   const [gameWon, setGameWon] = useState(false);
- 
-  
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const userIdFromStorage = localStorage.getItem("user_id");
+    if (userIdFromStorage) {
+      setUserId(userIdFromStorage);
+    }
+  }, []);
 
   function generateThreeDigitNumber() {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -36,6 +42,12 @@ const Game = () => {
   }
 
   function handleGuessChange(event) {
+
+    if (userId === null) {
+      event.preventDefault();
+      setGameWon(true);
+    }
+
     const value = event.target.value;
     if (/^[1-9][0-9]*$/.test(value) || value === "") {
       const uniqueDigits = new Set(value.split(""));
@@ -66,6 +78,7 @@ const Game = () => {
     }
     const { bulls, cows } = calculateBullsAndCows();
     const attemptResult = {
+      user_id: userId,
       guess,
       bulls,
       cows,
@@ -133,7 +146,7 @@ const Game = () => {
 
   console.log("Random number:" + randomNumber);
   console.log("Number length:" + numberLength);
-
+  console.log("User ID:", userId);
   return (
     <>
       <Header />
