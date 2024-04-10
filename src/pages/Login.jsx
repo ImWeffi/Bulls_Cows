@@ -23,7 +23,7 @@ const Login = () => {
         password,
       });
       console.log(response);
-      localStorage.setItem("user_id", response.data.id);
+      localStorage.setItem("user_id", response.data.user_id);
       localStorage.setItem("username", username);
       navigate("/dashboard");
     } catch (error) {

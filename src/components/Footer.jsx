@@ -1,6 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import "../styles/Footer.css";
+
 const Footer = () => {
   const email = "nikita.karpovs2004@inbox.lv";
 
@@ -12,24 +16,21 @@ const Footer = () => {
             href="https://github.com/ImWeffi"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-dark mx-1"
+            className="text-dark mx-3"
           >
-            GitHub
+            <FontAwesomeIcon icon={faGithub} />
           </a>
-          |
           <a
             href="https://linkedin.com/in/nikitakarpovs"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-dark mx-2"
+            className="text-dark mx-3"
           >
-            LinkedIn
+            <FontAwesomeIcon icon={faLinkedin} />
           </a>
-          |
           <a href={`mailto:${email}`} className="text-dark ms-3">
-           Email
+            <FontAwesomeIcon icon={faEnvelope} />
           </a>
-         
         </div>
       </div>
     </footer>
