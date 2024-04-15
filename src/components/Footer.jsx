@@ -7,6 +7,7 @@ import "../styles/Footer.css";
 
 const Footer = () => {
   const email = "nikita.karpovs2004@inbox.lv";
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-light text-dark text-center p-2 fixed-bottom">
@@ -31,6 +32,7 @@ const Footer = () => {
           <a href={`mailto:${email}`} className="text-dark ms-3">
             <FontAwesomeIcon icon={faEnvelope} />
           </a>
+          <p className="m-0">Copyright © {currentYear} Nikita Karpovs</p>
         </div>
       </div>
     </footer>

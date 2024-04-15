@@ -9,6 +9,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
+  port:3306,  //change port on yours 
   password: "",
   database: "bullscows",
 });
@@ -89,6 +90,21 @@ app.post("/api/results", (req, res) => {
     return res.status(201).json({ message: "Game result saved successfully" });
   });
 });
+app.get("/api/history", (req, res) => {
+  const { user_id } = req.query;
+
+  const sql = "SELECT * FROM game_history WHERE user_id = ?";
+  const values = [user_id];
+
+  db.query(sql, values, (err, results) => {
+    if (err) {
+      console.error("Error fetching game history:", err);
+      return res.status(500).json({ error: "An error occurred while fetching game history" });
+    }
+    return res.status(200).json(results);
+  });
+});
+
 
 app.listen(3002, () => {
   console.log("Server is running on port 3002");
