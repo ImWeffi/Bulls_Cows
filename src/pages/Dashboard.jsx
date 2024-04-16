@@ -14,11 +14,11 @@ const Dashboard = () => {
   }, [navigate]);
 
   const username = localStorage.getItem("username");
-  const userId = localStorage.getItem("user_id"); 
+  const userId = localStorage.getItem("user_id");
 
   const handleLogout = () => {
     localStorage.removeItem("username");
-    localStorage.removeItem("user_id"); 
+    localStorage.removeItem("user_id");
     navigate("/login");
   };
 

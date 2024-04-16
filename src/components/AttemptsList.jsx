@@ -1,5 +1,5 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const AttemptsList = ({ attempts = [] }) => {
   return (
@@ -32,4 +32,3 @@ const AttemptsList = ({ attempts = [] }) => {
 };
 
 export default AttemptsList;
-

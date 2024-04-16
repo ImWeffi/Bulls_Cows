@@ -1,20 +1,18 @@
 .rules-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .rules-heading {
-    color: #333;
-  }
-  
-  .sub-heading {
-    color: red;
-  }
-  
-  .rules-list {
-    list-style-type: disc;
-    margin-left: 20px;
-  }
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  
+.rules-heading {
+  color: #333;
+}
+
+.sub-heading {
+  color: red;
+}
+
+.rules-list {
+  list-style-type: disc;
+  margin-left: 20px;
+}

@@ -42,7 +42,6 @@ const Game = () => {
   }
 
   function handleGuessChange(event) {
-
     if (userId === null) {
       event.preventDefault();
       setGameWon(true);

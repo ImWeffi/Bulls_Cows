@@ -11,17 +11,17 @@ import Dashboard from "./pages/Dashboard";
 function App() {
   return (
     <div>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Game />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/rules" element={<Rules />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard/>}/>
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Game />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/rules" element={<Rules />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

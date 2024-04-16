@@ -8,9 +8,7 @@ function SettingsModal({
   defaultNumberLength,
 }) {
   const [show, setShow] = useState(false);
-  const [selectedNumberLength, setSelectedNumberLength] = useState(
-    defaultNumberLength
-  );
+  const [selectedNumberLength, setSelectedNumberLength] = useState(defaultNumberLength);
   const [hasChanged, setHasChanged] = useState(false);
 
   const handleNumberLengthChange = (e) => {
@@ -30,7 +28,7 @@ function SettingsModal({
   const handleRestartAndClose = () => {
     onRestart();
     setShow(false);
-    setHasChanged(false); 
+    setHasChanged(false);
   };
 
   return (

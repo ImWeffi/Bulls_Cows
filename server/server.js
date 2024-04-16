@@ -9,7 +9,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
-  port:3306,  //change port on yours 
+  port: 3306, //change port on yours
   password: "",
   database: "bullscows",
 });
@@ -71,20 +71,25 @@ app.post("/login", (req, res) => {
     if (user.password !== password) {
       return res.status(400).json({ error: "Invalid username or password" });
     }
-    return res.status(200).json({ message: "Login successful", user_id: user.user_id });
+    return res
+      .status(200)
+      .json({ message: "Login successful", user_id: user.user_id });
   });
 });
 
 app.post("/api/results", (req, res) => {
   const { user_id, guess, bulls, cows, timer } = req.body;
 
-  const sql = "INSERT INTO game_history (user_id, guess, bulls, cows, timer, created_at) VALUES (?, ?, ?, ?, ?, current_timestamp())";
+  const sql =
+    "INSERT INTO game_history (user_id, guess, bulls, cows, timer, created_at) VALUES (?, ?, ?, ?, ?, current_timestamp())";
   const values = [user_id, guess, bulls, cows, timer];
 
   db.query(sql, values, (err, result) => {
     if (err) {
       console.error("Error occurred during saving game result:", err);
-      return res.status(500).json({ error: "An error occurred during saving game result" });
+      return res
+        .status(500)
+        .json({ error: "An error occurred during saving game result" });
     }
     console.log("Game result saved successfully");
     return res.status(201).json({ message: "Game result saved successfully" });
@@ -99,12 +104,13 @@ app.get("/api/history", (req, res) => {
   db.query(sql, values, (err, results) => {
     if (err) {
       console.error("Error fetching game history:", err);
-      return res.status(500).json({ error: "An error occurred while fetching game history" });
+      return res
+        .status(500)
+        .json({ error: "An error occurred while fetching game history" });
     }
     return res.status(200).json(results);
   });
 });
-
 
 app.listen(3002, () => {
   console.log("Server is running on port 3002");

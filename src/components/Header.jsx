@@ -1,10 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Header() {
-  
+  const location = useLocation();
   const isLoggedIn = localStorage.getItem("username");
 
   return (
@@ -22,21 +22,27 @@ export default function Header() {
                 Rules
               </NavLink>
             </li>
-            {isLoggedIn && ( 
+            {isLoggedIn && (
               <li className="nav-item">
                 <NavLink to="/history" className="nav-link">
                   History
                 </NavLink>
               </li>
             )}
-            {isLoggedIn && ( 
+            {isLoggedIn && (
               <li className="nav-item">
                 <NavLink to="/dashboard" className="nav-link">
                   Dashboard
                 </NavLink>
               </li>
             )}
-            {!isLoggedIn && ( 
+            {!isLoggedIn && location.pathname === "/register" ? (
+              <li className="nav-item">
+                <NavLink to="/register" className="nav-link">
+                  Register
+                </NavLink>
+              </li>
+            ) : (
               <li className="nav-item">
                 <NavLink to="/login" className="nav-link">
                   Login

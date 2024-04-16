@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const History = () => {
   const navigate = useNavigate();
@@ -27,8 +28,8 @@ const History = () => {
         <h2 className="text-center mb-4">All Attempts</h2>
         <div className="row justify-content-center">
           <div className="col-md-10">
-            <table className="table">
-              <thead>
+            <table className="table table-bordered table-hover">
+              <thead className="thead-dark">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Guess</th>
