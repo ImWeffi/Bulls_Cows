@@ -112,6 +112,29 @@ app.get("/api/history", (req, res) => {
   });
 });
 
+app.get("/api/leaderboard", (req, res) => {
+  const sortBy = req.query.sortBy || "timer";
+
+  const sql = `
+    SELECT game_history.user_id, users.username, game_history.bulls, game_history.timer 
+    FROM game_history 
+    INNER JOIN users ON game_history.user_id = users.user_id
+    ORDER BY ${sortBy} 
+    LIMIT 10
+  `;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error fetching leaderboard:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while fetching leaderboard" });
+    }
+    return res.status(200).json(results);
+  });
+});
+
+
 app.listen(3002, () => {
   console.log("Server is running on port 3002");
 });

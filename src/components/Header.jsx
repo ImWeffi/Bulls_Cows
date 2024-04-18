@@ -22,6 +22,11 @@ export default function Header() {
                 Rules
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to="/leaderboard" className="nav-link">
+                Leaderboard
+              </NavLink>
+            </li>
             {isLoggedIn && (
               <li className="nav-item">
                 <NavLink to="/history" className="nav-link">
@@ -43,11 +48,13 @@ export default function Header() {
                 </NavLink>
               </li>
             ) : (
-              <li className="nav-item">
-                <NavLink to="/login" className="nav-link">
-                  Login
-                </NavLink>
-              </li>
+              !isLoggedIn && (
+                <li className="nav-item">
+                  <NavLink to="/login" className="nav-link">
+                    Login
+                  </NavLink>
+                </li>
+              )
             )}
           </ul>
         </div>
