@@ -35,7 +35,7 @@ app.post("/register", (req, res) => {
         "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
       const values = [username, password, email];
 
-      db.query(sql, values, (err, result) => {
+      db.query(sql, values, (err) => {
         if (err) {
           console.error("Error occurred during registration:", err);
           return res
@@ -84,7 +84,7 @@ app.post("/api/results", (req, res) => {
     "INSERT INTO game_history (user_id, guess, bulls, cows, timer, created_at) VALUES (?, ?, ?, ?, ?, current_timestamp())";
   const values = [user_id, guess, bulls, cows, timer];
 
-  db.query(sql, values, (err, result) => {
+  db.query(sql, values, (err, results) => {
     if (err) {
       console.error("Error occurred during saving game result:", err);
       return res
@@ -92,7 +92,7 @@ app.post("/api/results", (req, res) => {
         .json({ error: "An error occurred during saving game result" });
     }
     console.log("Game result saved successfully");
-    return res.status(201).json({ message: "Game result saved successfully" });
+    return res.status(200).json(results);
   });
 });
 app.get("/api/history", (req, res) => {
@@ -134,6 +134,22 @@ app.get("/api/leaderboard", (req, res) => {
   });
 });
 
+app.post("/api/questions", (req, res) => {
+  const { title, email, text } = req.body;
+
+  const sql = "INSERT INTO questions (title, email, text) VALUES (?, ?, ?)";
+  const values = [title, email, text];
+
+  db.query(sql, values, (err, results) => {
+    if (err) {
+      console.error("Error saving question:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while fatching the question" });
+    }
+    return res.status(200).json(results);
+  });
+});
 
 app.listen(3002, () => {
   console.log("Server is running on port 3002");

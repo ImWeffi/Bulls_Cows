@@ -9,6 +9,7 @@ const Register = () => {
   const [values, setValues] = useState({
     username: "",
     password: "",
+    passwordCheck: "",
     email: "",
   });
   const [error, setError] = useState("");
@@ -23,6 +24,10 @@ const Register = () => {
     event.preventDefault();
     if (!values.username || !values.password || !values.email) {
       setError("Please fill in all fields");
+      return;
+    }
+    if (values.password !== values.passwordCheck) {
+      setError("Passwords do not match");
       return;
     }
     try {
@@ -66,6 +71,18 @@ const Register = () => {
                   className="form-control"
                   id="inputPassword"
                   name="password"
+                  placeholder="Enter password"
+                  onChange={handleChange}
+                />
+              </div>
+              <br />
+              <div className="form-group">
+                <label htmlFor="inputPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="inputPasswordCheck"
+                  name="passwordCheck"
                   placeholder="Enter password"
                   onChange={handleChange}
                 />

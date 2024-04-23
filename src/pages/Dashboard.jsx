@@ -14,7 +14,6 @@ const Dashboard = () => {
   }, [navigate]);
 
   const username = localStorage.getItem("username");
-  const userId = localStorage.getItem("user_id");
 
   const handleLogout = () => {
     localStorage.removeItem("username");
@@ -35,7 +34,7 @@ const Dashboard = () => {
             <div className="card">
               <div className="card-body">
                 <h1 className="card-title text-center mb-4">
-                  Welcome, {username}! (User ID: {userId})
+                  Welcome, {username}!
                 </h1>
                 <br />
                 <button
