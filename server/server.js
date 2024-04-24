@@ -78,11 +78,11 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/api/results", (req, res) => {
-  const { user_id, guess, bulls, cows, timer } = req.body;
+  const { user_id, guess, bulls, cows, timer, attempts } = req.body;
 
   const sql =
-    "INSERT INTO game_history (user_id, guess, bulls, cows, timer, created_at) VALUES (?, ?, ?, ?, ?, current_timestamp())";
-  const values = [user_id, guess, bulls, cows, timer];
+    "INSERT INTO game_history (user_id, guess, bulls, cows, timer, attempts, created_at) VALUES (?, ?, ?, ?, ?, ?, current_timestamp())";
+  const values = [user_id, guess, bulls, cows, timer, attempts];
 
   db.query(sql, values, (err, results) => {
     if (err) {
@@ -95,6 +95,7 @@ app.post("/api/results", (req, res) => {
     return res.status(200).json(results);
   });
 });
+
 app.get("/api/history", (req, res) => {
   const { user_id } = req.query;
 
@@ -116,7 +117,7 @@ app.get("/api/leaderboard", (req, res) => {
   const sortBy = req.query.sortBy || "timer";
 
   const sql = `
-    SELECT game_history.user_id, users.username, game_history.bulls, game_history.timer 
+    SELECT game_history.user_id, users.username, game_history.bulls, game_history.attempts, game_history.timer 
     FROM game_history 
     INNER JOIN users ON game_history.user_id = users.user_id
     ORDER BY ${sortBy} 

@@ -81,6 +81,7 @@ const Game = () => {
       guess,
       bulls,
       cows,
+      attempts: attempts.length + 1,
       timer,
     };
     if (attempts.some((attempt) => attempt.guess === guess)) {

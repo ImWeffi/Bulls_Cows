@@ -31,8 +31,9 @@ function Leaderboard() {
                   <thead className="thead-dark">
                     <tr>
                       <th scope="col">Top</th>
-                      <th scope="col">User ID</th>
+                      <th scope="col">Username</th>
                       <th scope="col">Bulls</th>
+                      <th scope="col">Attempts</th>
                       <th scope="col">Time</th>
                     </tr>
                   </thead>
@@ -42,6 +43,7 @@ function Leaderboard() {
                         <td>{index + 1}</td>
                         <td>{record.username}</td>
                         <td>{record.bulls}</td>
+                        <td>{record.attempts}</td>
                         <td>{record.timer} seconds</td>
                       </tr>
                     ))}

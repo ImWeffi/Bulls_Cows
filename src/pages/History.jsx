@@ -36,7 +36,7 @@ const History = () => {
                       <th scope="col">#</th>
                       <th scope="col">Guess</th>
                       <th scope="col">Bulls</th>
-                      <th scope="col">Cows</th>
+                      <th scope="col">Attempts</th>
                       <th scope="col">Time</th>
                     </tr>
                   </thead>
@@ -46,7 +46,7 @@ const History = () => {
                         <th scope="row">{index + 1}</th>
                         <td>{attempt.guess}</td>
                         <td>{attempt.bulls}</td>
-                        <td>{attempt.cows}</td>
+                        <td>{attempt.attempts}</td>
                         <td>{attempt.timer} seconds</td>
                       </tr>
                     ))}
