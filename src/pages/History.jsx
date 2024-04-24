@@ -27,13 +27,13 @@ const History = () => {
       <div className="container mt-4">
         <div className="card">
           <div className="card-body">
-            <h2 className="text-center mb-4">All Attempts</h2>
+            <h2 className="text-center mb-4">History</h2>
             <div className="row justify-content-center">
               <div className="col-md-10">
                 <table className="table table-bordered table-hover">
                   <thead className="thead-dark">
                     <tr>
-                      <th scope="col">#</th>
+                      <th scope="col">Game</th>
                       <th scope="col">Guess</th>
                       <th scope="col">Bulls</th>
                       <th scope="col">Attempts</th>

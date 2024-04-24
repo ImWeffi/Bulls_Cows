@@ -152,6 +152,24 @@ app.post("/api/questions", (req, res) => {
   });
 });
 
+app.post("/api/deleteProfile", (req, res) => {
+  const { user_id } = req.body;
+
+  const deleteUserSql = "DELETE FROM users WHERE user_id = ?";
+  const deleteUserValues = [user_id];
+
+  db.query(deleteUserSql, deleteUserValues, (err) => {
+    if (err) {
+      console.error("Error occurred during profile deletion:", err);
+      return res
+        .status(500)
+        .json({ error: "An error occurred during profile deletion" });
+    }
+    console.log("Profile deleted successfully");
+    return res.status(200).json({ message: "Profile deleted successfully" });
+  });
+});
+
 app.listen(3002, () => {
   console.log("Server is running on port 3002");
 });

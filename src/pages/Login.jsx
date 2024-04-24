@@ -22,7 +22,6 @@ const Login = () => {
         username,
         password,
       });
-      console.log(response);
       localStorage.setItem("user_id", response.data.user_id);
       localStorage.setItem("username", username);
       navigate("/dashboard");

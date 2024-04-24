@@ -2,18 +2,15 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../styles/Rules.css";
 
 const Rules = () => {
-  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [showError, setShowError] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
-     
     const accordions = document.querySelectorAll('[data-bs-toggle="collapse"]');
     accordions.forEach((accordion) => {
       accordion.addEventListener("click", function () {
@@ -69,11 +66,11 @@ const Rules = () => {
         if (response.ok) {
           console.log("Question submitted successfully");
           setQuestion({ title: "", email: "", text: "" });
-          setSuccessMessage("Question submitted successfully"); 
-          setShowError(false); 
+          setSuccessMessage("Question submitted successfully");
+          setShowError(false);
           setTimeout(() => {
-            setSuccessMessage(""); 
-          }, 5000) 
+            setSuccessMessage("");
+          }, 5000);
         } else {
           console.error("Failed to submit question");
         }
@@ -219,7 +216,7 @@ const Rules = () => {
                     className="form-control"
                     id="text"
                     name="text"
-                    rows="3"
+                    rows="2"
                     placeholder="Enter your question here"
                     value={question.text}
                     onChange={handleInputChange}

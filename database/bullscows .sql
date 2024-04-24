@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 23, 2024 at 08:49 PM
+-- Generation Time: Apr 24, 2024 at 01:01 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -28,12 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `game_history` (
-  `id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `guess` varchar(255) NOT NULL,
   `bulls` int(11) NOT NULL,
   `cows` int(11) NOT NULL,
-  `timer` int(11) NOT NULL,
+  `attempts` int(255) NOT NULL,
+  `timer` int(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -50,6 +51,13 @@ CREATE TABLE `questions` (
   `text` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `questions`
+--
+
+INSERT INTO `questions` (`question_id`, `title`, `email`, `text`) VALUES
+(19, '\'dsada', 'dasda@inbox.lv', 'dasdasdas');
+
 -- --------------------------------------------------------
 
 --
@@ -65,6 +73,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `user_picture`) VALUES
+(22, 'nik', 'nik', 'nikita.karpovs2004@inbox.lv', '');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -72,7 +87,7 @@ CREATE TABLE `users` (
 -- Indexes for table `game_history`
 --
 ALTER TABLE `game_history`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`game_id`),
   ADD KEY `fk_user_id` (`user_id`);
 
 --
@@ -95,19 +110,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `game_history`
 --
 ALTER TABLE `game_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `game_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -117,7 +132,7 @@ ALTER TABLE `users`
 -- Constraints for table `game_history`
 --
 ALTER TABLE `game_history`
-  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `game_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 

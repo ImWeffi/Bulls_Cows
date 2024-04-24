@@ -106,8 +106,11 @@ const Game = () => {
     let interval;
     if (guess !== "") {
       interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
-      }, 1000);
+        setTimer((prevTimer) => {
+          const newTimer = parseFloat((prevTimer + 0.1).toFixed(1));
+          return newTimer;
+        });
+      }, 100); 
     } else {
       clearInterval(interval);
     }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -13,7 +12,7 @@ const Register = () => {
     email: "",
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -35,8 +34,11 @@ const Register = () => {
         "http://localhost:3002/register",
         values
       );
-      alert("Registered!");
-      navigate("/login");
+      console.log(response);
+      setSuccessMessage("Successfully registered!");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
     } catch (error) {
       console.error(error.response);
       setError(error.response.data.error);
@@ -105,6 +107,11 @@ const Register = () => {
               </button>
             </form>
             <br />
+            {successMessage && (
+              <div className="alert alert-success alert-sm" role="alert">
+                {successMessage}
+              </div>
+            )}
             {error && <div className="alert alert-danger">{error}</div>}
             <Link to="/login">Log In</Link>
           </div>
