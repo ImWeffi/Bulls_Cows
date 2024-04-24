@@ -170,6 +170,58 @@ app.post("/api/deleteProfile", (req, res) => {
   });
 });
 
+app.post("/api/changePassword", (req, res) => {
+  const { user_id, currentPassword, newPassword } = req.body;
+  const checkPasswordSql = "SELECT * FROM users WHERE user_id = ?";
+  const checkPasswordValues = [user_id];
+
+  db.query(
+    checkPasswordSql,
+    checkPasswordValues,
+    (checkPasswordErr, checkPasswordResult) => {
+      if (checkPasswordErr) {
+        console.error(
+          "Error occurred during password check:",
+          checkPasswordErr
+        );
+        return res
+          .status(500)
+          .json({ error: "An error occurred during password change" });
+      }
+
+      if (checkPasswordResult.length === 0) {
+        return res.status(400).json({ error: "User does not exist" });
+      }
+
+      const user = checkPasswordResult[0];
+      if (user.password !== currentPassword) {
+        return res.status(400).json({ error: "Current password is incorrect" });
+      }
+
+      const updatePasswordSql =
+        "UPDATE users SET password = ? WHERE user_id = ?";
+      const updatePasswordValues = [newPassword, user_id];
+
+      db.query(updatePasswordSql, updatePasswordValues, (updatePasswordErr) => {
+        if (updatePasswordErr) {
+          console.error(
+            "Error occurred during password update:",
+            updatePasswordErr
+          );
+          return res
+            .status(500)
+            .json({ error: "An error occurred during password change" });
+        }
+        console.log(req.body);
+        console.log("Password changed successfully");
+        return res
+          .status(200)
+          .json({ message: "Password changed successfully" });
+      });
+    }
+  );
+});
+
 app.listen(3002, () => {
   console.log("Server is running on port 3002");
 });
