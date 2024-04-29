@@ -39,7 +39,7 @@ const Dashboard = () => {
     setShowDeleteConfirmation(false);
   };
 
-  const confirmDeleteProfile = () => { 
+  const confirmDeleteProfile = () => {
     axios
       .post("http://localhost:3002/api/deleteProfile", { user_id })
       .then((response) => {
@@ -98,32 +98,33 @@ const Dashboard = () => {
                 <h1 className="card-title text-center mb-4">
                   Welcome, {localStorage.getItem("username")}!
                 </h1>
-                <br/>
-                <button
-                  className="btn btn-secondary btn-block mb-3"
-                  onClick={() => setShowModal(true)}
-                >
-                  Change Password
-                </button>
-                <br></br>
-                <button
-                  className="btn btn-danger btn-block mb-3"
-                  onClick={handleDeleteProfile}
-                >
-                  Delete Profile
-                </button>
-                <br/>
-                <button
-                  className="btn btn-primary btn-block mb-3"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
+                <br />
+                <div className="d-flex flex-column align-items-center">
+                  <button
+                    className="btn btn-secondary btn-block mb-3"
+                    onClick={() => setShowModal(true)}
+                  >
+                    Change Password
+                  </button>
+                  <button
+                    className="btn btn-danger btn-block mb-3 "
+                    onClick={handleDeleteProfile}
+                  >
+                    Delete Profile
+                  </button>
+                  <button
+                    className="btn btn-primary btn-block mb-3"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <Footer />
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>

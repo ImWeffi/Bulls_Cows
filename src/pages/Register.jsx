@@ -21,6 +21,8 @@ const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError("");
+    setSuccessMessage("");
     if (!values.username || !values.password || !values.email) {
       setError("Please fill in all fields");
       return;

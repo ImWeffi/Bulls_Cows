@@ -29,7 +29,7 @@ const History = () => {
           <div className="card-body">
             <h2 className="text-center mb-4">History</h2>
             <div className="row justify-content-center">
-              <div className="col-md-10">
+              <div className="col-md-8">
                 <table className="table table-bordered table-hover">
                   <thead className="thead-dark">
                     <tr>

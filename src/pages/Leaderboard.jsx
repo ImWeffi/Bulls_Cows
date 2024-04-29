@@ -32,6 +32,7 @@ function Leaderboard() {
                     <tr>
                       <th scope="col">Top</th>
                       <th scope="col">Username</th>
+                      <th scope="col">Guess</th>
                       <th scope="col">Bulls</th>
                       <th scope="col">Attempts</th>
                       <th scope="col">Time</th>
@@ -42,6 +43,7 @@ function Leaderboard() {
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{record.username}</td>
+                        <td>{record.guess}</td>
                         <td>{record.bulls}</td>
                         <td>{record.attempts}</td>
                         <td>{record.timer} seconds</td>

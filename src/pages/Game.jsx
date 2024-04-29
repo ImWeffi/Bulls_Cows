@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Game.css";
+import noUserImg from "../styles/bull.png";
 import AttemptsList from "../components/AttemptsList";
 import SettingsModal from "../components/SettingsModal";
 import Footer from "../components/Footer";
@@ -42,11 +43,6 @@ const Game = () => {
   }
 
   function handleGuessChange(event) {
-    if (userId === null) {
-      event.preventDefault();
-      setGameWon(true);
-    }
-
     const value = event.target.value;
     if (/^[1-9][0-9]*$/.test(value) || value === "") {
       const uniqueDigits = new Set(value.split(""));
@@ -72,7 +68,7 @@ const Game = () => {
   function guessSumbit(event) {
     event.preventDefault();
     if (guess.length !== numberLength) {
-      alert(`Please enter a ${numberLength} digit number.`);
+      setFeedback(`Please enter a ${numberLength} digit number.`);
       return;
     }
     const { bulls, cows } = calculateBullsAndCows();
@@ -92,7 +88,7 @@ const Game = () => {
       if (bulls === numberLength) {
         saveGameResult(attemptResult);
         setAttempts();
-        alert(`Congrats, you win! Bulls: ${bulls}`);
+        setFeedback(`Congrats, you win! Bulls: ${bulls}`);
         setTimer(0);
         setGuess("");
         setGameWon(true);
@@ -110,7 +106,7 @@ const Game = () => {
           const newTimer = parseFloat((prevTimer + 0.1).toFixed(1));
           return newTimer;
         });
-      }, 100); 
+      }, 100);
     } else {
       clearInterval(interval);
     }
@@ -153,49 +149,72 @@ const Game = () => {
   return (
     <>
       <Header />
-      <div className="container mt-5">
-        <div className="game text-center">
-          <h4>Bulls And Cows Game!</h4>
-          <form onSubmit={guessSumbit}>
-            <input
-              id="guess"
-              type="text"
-              pattern="\d*"
-              value={guess}
-              onChange={handleGuessChange}
-              onKeyUp={handleGuessChange}
-              minLength={numberLength}
-              maxLength={numberLength}
-              size={numberLength}
-              disabled={gameWon}
-              required
-            />
-
-            <p>
-              Write a <strong>{numberLength} </strong>digit number
-            </p>
-
-            <div className="btn-group" role="group">
-              <button
-                className="btn btn-success"
-                type="sumbit"
-                disabled={gameWon}
-              >
-                Try to guess
-              </button>
-              <button className="btn btn-danger" onClick={restartGame}>
-                Restart
-              </button>
-              <SettingsModal
-                onRestart={handleRestart}
-                onNumberLengthChange={handleNumberLengthChangeModal}
-                defaultNumberLength={numberLength}
-              />
+      <div className="container mt-4">
+        <div className="card">
+          <div className="card-body">
+            <div className="game text-center">
+              <h2 className="text-center mb-4">Bulls And Cows Game!</h2>
+              {userId === null ? (
+                <div>
+                  <img
+                    src={noUserImg}
+                    alt="No user"
+                    className="img-placeholder"
+                  />
+                  <h5>Log in to play!</h5>
+                  <br />
+                </div>
+              ) : (
+                <form onSubmit={guessSumbit}>
+                  <input
+                    id="guess"
+                    type="text"
+                    pattern="\d*"
+                    value={guess}
+                    onChange={handleGuessChange}
+                    onKeyUp={handleGuessChange}
+                    minLength={numberLength}
+                    maxLength={numberLength}
+                    size={numberLength}
+                    disabled={gameWon}
+                    required
+                  />
+                  <p>
+                    Write a <strong>{numberLength} </strong>digit number
+                  </p>
+                  <div className="btn-group" role="group">
+                    <button
+                      className="btn btn-success"
+                      type="sumbit"
+                      disabled={gameWon}
+                    >
+                      Try to guess
+                    </button>
+                    <button className="btn btn-danger" onClick={restartGame}>
+                      Restart
+                    </button>
+                    <SettingsModal
+                      onRestart={handleRestart}
+                      onNumberLengthChange={handleNumberLengthChangeModal}
+                      defaultNumberLength={numberLength}
+                    />
+                  </div>
+                  {!gameWon && guess !== "" && (
+                    <p className="mt-3 alert alert-info custom-alert">
+                      {feedback}
+                    </p>
+                  )}
+                  {gameWon && (
+                    <p className="mt-3 alert alert-info custom-alert">
+                      {feedback}
+                    </p>
+                  )}
+                </form>
+              )}
+              <br />
+              <AttemptsList attempts={attempts} />
             </div>
-          </form>
-
-          <p className="mt-3">{feedback}</p>
-          <AttemptsList attempts={attempts} />
+          </div>
         </div>
       </div>
       <Footer />

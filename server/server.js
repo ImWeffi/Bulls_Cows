@@ -122,7 +122,7 @@ app.get("/api/leaderboard", (req, res) => {
   const sortBy = req.query.sortBy || "timer";
 
   const sql = `
-    SELECT game_history.user_id, users.username, game_history.bulls, game_history.attempts, game_history.timer 
+    SELECT game_history.user_id, users.username, game_history.bulls, game_history.attempts, game_history.timer, game_history.guess 
     FROM game_history 
     INNER JOIN users ON game_history.user_id = users.user_id
     ORDER BY ${sortBy} 
