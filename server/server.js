@@ -5,6 +5,7 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
+const bcrypt = require("bcrypt");
 
 const db = mysql.createConnection({
   user: "root",
@@ -14,40 +15,33 @@ const db = mysql.createConnection({
   database: "bullscows",
 });
 
+const saltRounds = 10;
+
 app.post("/register", (req, res) => {
   const { username, password, email } = req.body;
 
-  const checkUserSql = "SELECT * FROM users WHERE username = ?";
-  const checkUserValues = [username];
-
-  db.query(checkUserSql, checkUserValues, (checkUserErr, checkUserResult) => {
-    if (checkUserErr) {
-      console.error("Error occurred during user check:", checkUserErr);
+  bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
+    if (err) {
+      console.error("Error occurred during password hashing:", err);
       return res
         .status(500)
         .json({ error: "An error occurred during registration" });
     }
 
-    if (checkUserResult.length > 0) {
-      return res.status(400).json({ error: "User already exists" });
-    } else {
-      const sql =
-        "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
-      const values = [username, password, email];
+    const sql =
+      "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+    const values = [username, hashedPassword, email];
 
-      db.query(sql, values, (err) => {
-        if (err) {
-          console.error("Error occurred during registration:", err);
-          return res
-            .status(500)
-            .json({ error: "An error occurred during registration" });
-        }
-        console.log("User registered successfully");
+    db.query(sql, values, (err) => {
+      if (err) {
+        console.error("Error occurred during registration:", err);
         return res
-          .status(200)
-          .json({ message: "User registered successfully" });
-      });
-    }
+          .status(500)
+          .json({ error: "An error occurred during registration" });
+      }
+      console.log("User registered successfully");
+      return res.status(200).json({ message: "User registered successfully" });
+    });
   });
 });
 
@@ -68,12 +62,23 @@ app.post("/login", (req, res) => {
     }
 
     const user = checkUserResult[0];
-    if (user.password !== password) {
-      return res.status(400).json({ error: "Invalid username or password" });
-    }
-    return res
-      .status(200)
-      .json({ message: "Login successful", user_id: user.user_id });
+
+    bcrypt.compare(password, user.password, (err, passwordMatch) => {
+      if (err) {
+        console.error("Error occurred during password comparison:", err);
+        return res
+          .status(500)
+          .json({ error: "An error occurred during login" });
+      }
+
+      if (!passwordMatch) {
+        return res.status(400).json({ error: "Invalid username or password" });
+      }
+
+      return res
+        .status(200)
+        .json({ message: "Login successful", user_id: user.user_id });
+    });
   });
 });
 
@@ -194,29 +199,53 @@ app.post("/api/changePassword", (req, res) => {
       }
 
       const user = checkPasswordResult[0];
-      if (user.password !== currentPassword) {
-        return res.status(400).json({ error: "Current password is incorrect" });
-      }
 
-      const updatePasswordSql =
-        "UPDATE users SET password = ? WHERE user_id = ?";
-      const updatePasswordValues = [newPassword, user_id];
-
-      db.query(updatePasswordSql, updatePasswordValues, (updatePasswordErr) => {
-        if (updatePasswordErr) {
-          console.error(
-            "Error occurred during password update:",
-            updatePasswordErr
-          );
+      bcrypt.compare(currentPassword, user.password, (err, passwordMatch) => {
+        if (err) {
+          console.error("Error occurred during password comparison:", err);
           return res
             .status(500)
             .json({ error: "An error occurred during password change" });
         }
-        console.log(req.body);
-        console.log("Password changed successfully");
-        return res
-          .status(200)
-          .json({ message: "Password changed successfully" });
+
+        if (!passwordMatch) {
+          return res
+            .status(400)
+            .json({ error: "Current password is incorrect" });
+        }
+
+        bcrypt.hash(newPassword, saltRounds, (hashErr, hashedPassword) => {
+          if (hashErr) {
+            console.error("Error occurred during password hashing:", hashErr);
+            return res
+              .status(500)
+              .json({ error: "An error occurred during password change" });
+          }
+
+          const updatePasswordSql =
+            "UPDATE users SET password = ? WHERE user_id = ?";
+          const updatePasswordValues = [hashedPassword, user_id];
+
+          db.query(
+            updatePasswordSql,
+            updatePasswordValues,
+            (updatePasswordErr) => {
+              if (updatePasswordErr) {
+                console.error(
+                  "Error occurred during password update:",
+                  updatePasswordErr
+                );
+                return res
+                  .status(500)
+                  .json({ error: "An error occurred during password change" });
+              }
+              console.log("Password changed successfully");
+              return res
+                .status(200)
+                .json({ message: "Password changed successfully" });
+            }
+          );
+        });
       });
     }
   );

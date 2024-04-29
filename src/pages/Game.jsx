@@ -172,7 +172,7 @@ const Game = () => {
             />
 
             <p>
-              Write <strong>{numberLength} </strong>number length number
+              Write a <strong>{numberLength} </strong>digit number
             </p>
 
             <div className="btn-group" role="group">

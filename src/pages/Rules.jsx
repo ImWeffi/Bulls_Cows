@@ -109,7 +109,7 @@ const Rules = () => {
                 >
                   <div className="accordion-body">
                     "Bulls and Cows" is a logical game for two players, where
-                    one player thinks of a three-digit number, and the other
+                    one player thinks of a four-digit number, and the other
                     player must guess this number.
                   </div>
                 </div>
