@@ -20,39 +20,49 @@ const saltRounds = 10;
 app.post("/register", (req, res) => {
   const { username, password, email } = req.body;
 
-  const checkUserSql = "SELECT * FROM users WHERE username = ?";
-  const checkUserValues = [username];
-
-  db.query(checkUserSql, checkUserValues, (checkUserErr, checkUserResult) => {
-    if (checkUserErr) {
-      console.error("Error occurred during user check:", checkUserErr);
+  bcrypt.hash(password, 10, (hashErr, hashedPassword) => {
+    if (hashErr) {
+      console.error("Error occurred during password hashing:", hashErr);
       return res
         .status(500)
         .json({ error: "An error occurred during registration" });
     }
 
-    if (checkUserResult.length > 0) {
-      return res.status(400).json({ error: "User already exists" });
-    } else {
-      const sql =
-        "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
-      const values = [username, password, email];
+    const checkUserSql = "SELECT * FROM users WHERE username = ?";
+    const checkUserValues = [username];
 
-      db.query(sql, values, (err, result) => {
-        if (err) {
-          console.error("Error occurred during registration:", err);
-          return res
-            .status(500)
-            .json({ error: "An error occurred during registration" });
-        }
-        console.log("User registered successfully");
+    db.query(checkUserSql, checkUserValues, (checkUserErr, checkUserResult) => {
+      if (checkUserErr) {
+        console.error("Error occurred during user check:", checkUserErr);
         return res
-          .status(200)
-          .json({ message: "User registered successfully" });
-      });
-    }
+          .status(500)
+          .json({ error: "An error occurred during registration" });
+      }
+
+      if (checkUserResult.length > 0) {
+        return res.status(400).json({ error: "User already exists" });
+      } else {
+        const sql =
+          "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+        const values = [username, hashedPassword, email];
+
+        db.query(sql, values, (err, result) => {
+          if (err) {
+            console.error("Error occurred during registration:", err);
+            return res
+              .status(500)
+              .json({ error: "An error occurred during registration" });
+          }
+          console.log("User registered successfully");
+          return res
+            .status(200)
+            .json({ message: "User registered successfully" });
+        });
+      }
+    });
   });
 });
+
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
