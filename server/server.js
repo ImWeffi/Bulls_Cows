@@ -40,24 +40,47 @@ app.post("/register", (req, res) => {
       }
 
       if (checkUserResult.length > 0) {
-        return res.status(400).json({ error: "User already exists" });
+        return res.status(400).json({ error: "Username already used" });
       } else {
-        const sql =
-          "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
-        const values = [username, hashedPassword, email];
+        const checkEmailSql = "SELECT * FROM users WHERE email = ?";
+        const checkEmailValues = [email];
 
-        db.query(sql, values, (err, result) => {
-          if (err) {
-            console.error("Error occurred during registration:", err);
-            return res
-              .status(500)
-              .json({ error: "An error occurred during registration" });
+        db.query(
+          checkEmailSql,
+          checkEmailValues,
+          (checkEmailErr, checkEmailResult) => {
+            if (checkEmailErr) {
+              console.error(
+                "Error occurred during email check:",
+                checkEmailErr
+              );
+              return res
+                .status(500)
+                .json({ error: "An error occurred during registration" });
+            }
+
+            if (checkEmailResult.length > 0) {
+              return res.status(400).json({ error: "Email already exists" });
+            } else {
+              const sql =
+                "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+              const values = [username, hashedPassword, email];
+
+              db.query(sql, values, (err) => {
+                if (err) {
+                  console.error("Error occurred during registration:", err);
+                  return res
+                    .status(500)
+                    .json({ error: "An error occurred during registration" });
+                }
+                console.log("User registered successfully");
+                return res
+                  .status(200)
+                  .json({ message: "User registered successfully" });
+              });
+            }
           }
-          console.log("User registered successfully");
-          return res
-            .status(200)
-            .json({ message: "User registered successfully" });
-        });
+        );
       }
     });
   });
