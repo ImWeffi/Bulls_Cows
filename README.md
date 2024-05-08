@@ -25,6 +25,7 @@ cd Bulls_Cows
 ```
 cd Bulls_Cows: npm install
 cd Bulls_Cows/server: npm install
+cd Bulls_Cows/server: npm i bcrypt
 ```
 ### 4. Palaidiet XAMPP un palaistiet Apache un MySQL serverus.
 ### 5. Importējat MySQL datu bāzi ar nosaukumu "bullscows". To varat izdarīt, izmantojot phpMyAdmin.
