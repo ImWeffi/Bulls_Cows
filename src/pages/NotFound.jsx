@@ -1,10 +1,28 @@
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import cow from "../styles/cow.gif";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const NotFound = () => {
   return (
-    <div>
-      <strong>This page doesn't exist. Go</strong> <Link to="/game">game</Link>
-    </div>
+    <>
+      <Header />
+      <div className="container mt-4">
+        <div className="card">
+          <div className="card-body">
+            <div className="container d-flex flex-column justify-content-center align-items-center ">
+              <img src={cow} alt="Not Found" className="img-fluid mb-3" />
+              <h2 className="mb-3">404 Page Not Found</h2>
+              <Link to="/" className="btn btn-primary">
+                Back to Game page!
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 

@@ -1,14 +1,28 @@
 .game {
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-  input {
-    padding: 8px;
-    margin-right: 10px;
-  }
-  
-  button {
-    padding: 8px 20px;
-    cursor: pointer;
-  }
+  text-align: center;
+}
+
+.game input {
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.game input:disabled {
+  background-color: #f2f2f2;
+  color: #999;
+}
+
+.img-placeholder {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.custom-alert {
+  max-width: 300px;
+  margin: 0 auto;
+}

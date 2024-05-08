@@ -1,26 +1,81 @@
-import React from "react";
-import Modal from "react-modal";
-import "../styles/Modal.css";
-Modal.setAppElement("#root");
+import React, { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
-const SettingsModal = ({ isOpen, closeModal, restartGame }) => {
+function SettingsModal({
+  onRestart,
+  onNumberLengthChange,
+  defaultNumberLength,
+}) {
+  const [show, setShow] = useState(false);
+  const [selectedNumberLength, setSelectedNumberLength] = useState(defaultNumberLength);
+  const [hasChanged, setHasChanged] = useState(false);
+
+  const handleNumberLengthChange = (e) => {
+    const selectedValue = parseInt(e.target.value, 10);
+    setSelectedNumberLength(selectedValue);
+    onNumberLengthChange(selectedValue);
+    setHasChanged(true);
+  };
+
+  const handleClose = () => {
+    if (hasChanged) {
+      return;
+    }
+    setShow(false);
+  };
+
+  const handleRestartAndClose = () => {
+    onRestart();
+    setShow(false);
+    setHasChanged(false);
+  };
+
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={closeModal}
-      restartGame = {restartGame}
-      contentLabel="Settings Modal"
-    >
-      <div className="modal">
-        <form>
-          <input type="number" max="10" min="1" required />
-          <button onClick={restartGame}>Change number length</button>
-          <button>Reset changes</button>
-          <button onClick={closeModal}>Close</button>
-        </form>
-      </div>
-    </Modal>
+    <>
+      <Button variant="primary" onClick={() => setShow(true)}>
+        Settings
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton={!hasChanged}>
+          <Modal.Title>Settings</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <label htmlFor="numberLength">Change Number Length:</label>
+          <select
+            id="numberLength"
+            onChange={handleNumberLengthChange}
+            value={selectedNumberLength}
+            required
+          >
+            {Array.from({ length: 9 }, (_, index) => (
+              <option key={index + 1} value={index + 1}>
+                {index + 1}
+              </option>
+            ))}
+          </select>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleRestartAndClose}>
+            Restart Game
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            disabled={hasChanged}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
-};
+}
 
 export default SettingsModal;
