@@ -143,9 +143,6 @@ const Game = () => {
     startNewGame(newNumberLength);
   };
 
-  console.log("Random number:" + randomNumber);
-  console.log("Number length:" + numberLength);
-  console.log("User ID:", userId);
   return (
     <>
       <Header />
