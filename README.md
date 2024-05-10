@@ -1,7 +1,7 @@
 # Spēle "Vērši un govis"
 
 Šis projekts ir klasiskās spēles "Vērši un govis" realizācija, izmantojot šādas tehnoloģijas: React priekš frontend, Express.js priekš backend un MySQL datu glabāšanai. 
-Lai lokāli testētu un izvietotu, mēs izmantojam XAMPP, kas nodrošina vidi servera un MySQL datu bāzes darbināšanai.
+
 
 ## Instalācija un palaišana
 
