@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     username: "",
     password: "",
@@ -18,6 +20,12 @@ const Register = () => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
   };
+  useEffect(() => {
+    const userId = localStorage.getItem("user_id");
+    if (userId) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
