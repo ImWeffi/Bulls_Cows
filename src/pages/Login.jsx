@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -10,6 +10,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    const userId = localStorage.getItem("user_id");
+    if (userId) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
