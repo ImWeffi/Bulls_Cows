@@ -1,7 +1,7 @@
 # Spēle "Vērši un govis"
 
 Šis projekts ir klasiskās spēles "Vērši un govis" realizācija, izmantojot šādas tehnoloģijas: React priekš frontend, Express.js priekš backend un MySQL datu glabāšanai. 
-Lai lokāli testētu un izvietotu, mēs izmantojam XAMPP, kas nodrošina vidi servera un MySQL datu bāzes darbināšanai.
+
 
 ## Instalācija un palaišana
 
@@ -25,6 +25,7 @@ cd Bulls_Cows
 ```
 cd Bulls_Cows: npm install
 cd Bulls_Cows/server: npm install
+cd Bulls_Cows/server: npm i bcrypt
 ```
 ### 4. Palaidiet XAMPP un palaistiet Apache un MySQL serverus.
 ### 5. Importējat MySQL datu bāzi ar nosaukumu "bullscows". To varat izdarīt, izmantojot phpMyAdmin.
